@@ -1,0 +1,25 @@
+<html>
+	<header>
+		<title>Sample Chat App using Socket.io and Express</title>	
+	</header>
+	<body>
+		<ul id="message"></ul>
+		<form id="socketform">
+			<input type="text" name="chatmessage" place="Enter your message here" id="m"/>
+			<button>Send</button>
+		</form>
+	</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var socket = io();
+  $('#socketform').submit(function() {
+  	socket.emit('chat message',$('#m').val());
+  	$('#m').val('');
+  	return false;
+  })
+  socket.on('chat message', function(msg) {
+  	$('#message').append($('<li>').text(msg));
+  });
+</script>
+</html>
